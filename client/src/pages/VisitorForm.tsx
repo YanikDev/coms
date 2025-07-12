@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { VisitorFormData, visitorSchema } from "../schema/visitorSchema";
 import { addVisitor } from "../features/forms/formsSlice";
+import { useNavigate } from "react-router-dom";
 
 const VisitorForm = () => {
   const dispatch = useDispatch();
@@ -22,12 +23,13 @@ const VisitorForm = () => {
       has_commitment: false,
     },
   });
-
+  const navigate = useNavigate();
   const onSubmit = (data: VisitorFormData) => {
     try {
       dispatch(addVisitor(data));
       toast.success("Visitor details submitted successfully!");
       reset();
+      navigate("/");
     } catch (err) {
       toast.error("Failed to submit visitor details.");
     }
