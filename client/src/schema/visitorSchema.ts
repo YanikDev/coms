@@ -3,6 +3,11 @@
 
 import { z } from "zod";
 
+const followUpSchema = z.object({
+  date: z.string().min(1, "Follow-up date required"),
+  summary: z.string().min(1, "Summary required"),
+});
+
 export const visitorSchema = z.object({
     name: z.string().min(1, "Name is required"),
     contact: z
@@ -17,5 +22,9 @@ export const visitorSchema = z.object({
     purpose: z.string().min(1, "Purpose is required"),
     outcome: z.string().optional(),
     has_commitment: z.boolean().optional(),
+   status:  z.string().optional(),
+    followUps: z.array(followUpSchema).optional(), 
 });
 export type VisitorFormData = z.infer<typeof visitorSchema>;
+export type FollowUpData = z.infer<typeof followUpSchema>
+

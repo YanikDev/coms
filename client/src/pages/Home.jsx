@@ -41,11 +41,12 @@ const Home = () => {
           />
         </Box>
 
-        <Box sx={{ flex: '1 1 250px', maxWidth: '280px' }}>
+        <Box  onClick={() => navigate('/visitor-list')} sx={{ flex: '1 1 250px', maxWidth: '280px' }}>
           <Card
-            title="Officer View & Update"
-            description="View and edit officer records."
+            title="Visitor List & Update"
+            description="View and edit visitor records."
             icon={<FaEdit size={32} color="#06506d" />}
+           
           />
         </Box>
 

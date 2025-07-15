@@ -5,8 +5,8 @@ import { TextField, Checkbox, Button, FormControlLabel, Box, Typography } from "
 import { toast, ToastContainer } from "react-toastify";
 
 import { useDispatch } from "react-redux";
-import { VisitorFormData, visitorSchema } from "../schema/visitorSchema";
-import { addVisitor } from "../features/forms/formsSlice";
+import { VisitorFormData, visitorSchema } from "../../schema/visitorSchema";
+import { addVisitor } from "../../features/forms/formsSlice";
 import { useNavigate } from "react-router-dom";
 
 const VisitorForm = () => {
