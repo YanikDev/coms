@@ -15,15 +15,6 @@ const Home = () => {
         margin: '0 auto',
       }}
     >
-      <Box sx={{ mb: 4, textAlign: { xs: 'center', md: 'left' } }}>
-        <Typography variant="h4" gutterBottom>
-          Welcome to COMS 
-        </Typography>
-        <Button variant="contained" color="primary" size="large">
-          Get Started
-        </Button>
-      </Box>
-
       <Box
         sx={{
           display: 'flex',
