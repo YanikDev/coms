@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   Box,
@@ -15,6 +16,7 @@ import { addFollowUpToVisitor } from "../../features/forms/formsSlice";
 import FollowUpDialog from "../../components/FollowUpDialog";
 import { useNavigate } from "react-router-dom";
 
+import "./VisitorList.css"; 
 
 const VisitorList = () => {
   const visitors = useSelector((state: RootState) => state.forms.data);
@@ -35,64 +37,66 @@ const VisitorList = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: 700, mx: "auto", mt: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        Visitor List
-      </Typography>
+<Box className="container my-5">
+  <Typography variant="h4" className="text-center fw-bold text-primary mb-4">
+    Visitor List
+  </Typography>
 
-      {visitors.length === 0 ? (
-        <Typography>No visitors submitted yet.</Typography>
-      ) : (
-        <List>
-          {visitors.map((visitor, index) => (
-            <React.Fragment key={index}>
-              <ListItem alignItems="flex-start">
-                <ListItemText
-                  primary={`${visitor.name} (${visitor.contact})`}
-                  secondary={
-                    <>
-                      <Typography>
-                        <strong>Visit Date:</strong>{" "}
-                        {new Date(visitor.visit_date).toLocaleString()}
-                      </Typography>
-                      <Typography>
-                        <strong>Purpose:</strong> {visitor.purpose}
-                      </Typography>
-                    </>
-                  }
-                />
-                <Stack direction="column" spacing={1}>
-                  
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    onClick={() =>  navigate(`/visitor/${index}`)}
-                  >
-                    View Details
-                  </Button>
+  {visitors.length === 0 ? (
+    <Typography className="text-muted text-center">No visitors submitted yet.</Typography>
+  ) : (
+    <div className="d-flex flex-wrap justify-content-center gap-4">
+      {visitors.map((visitor, index) => (
+        <div key={index} className="visitor-card card p-4 shadow-sm">
+          <div className="text-start">
+            <h5 className="fw-bold mb-2">{visitor.name}</h5>
+            <p className="mb-1">
+              <strong>Contact:</strong> {visitor.contact}
+            </p>
+            <p className="mb-1">
+              <strong>Visit Date:</strong>{" "}
+              {new Date(visitor.visit_date).toLocaleString()}
+            </p>
+            <p className="mb-3">
+              <strong>Purpose:</strong>{" "}
+              <span className="badge bg-info text-dark">{visitor.purpose}</span>
+            </p>
+          </div>
 
-                  <Button
-                    variant="contained"
-                    size="small"
-                    onClick={() => handleAddFollowUp(index)}
-                  >
-                    Add Follow-up
-                  </Button>
-                </Stack>
-              </ListItem>
-              <Divider />
-            </React.Fragment>
-          ))}
-        </List>
-      )}
+          <div className="d-flex justify-content-end gap-2">
+            <Button
+              variant="outlined"
+              size="small"
+              className="btn btn-outline-primary"
+              onClick={() => navigate(`/visitor/${index}`)}
+            >
+              View Details
+            </Button>
+            <Button
+              variant="contained"
+              size="small"
+              className="btn btn-success"
+              onClick={() => handleAddFollowUp(index)}
+            >
+              Add Follow-up
+            </Button>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
 
-      <FollowUpDialog
-        open={followUpIndex !== null}
-        onClose={() => setFollowUpIndex(null)}
-        onSubmit={handleFollowUpSubmit}
-      />
-    </Box>
+  <FollowUpDialog
+    open={followUpIndex !== null}
+    onClose={() => setFollowUpIndex(null)}
+    onSubmit={handleFollowUpSubmit}
+  />
+</Box>
+
   );
 };
 
 export default VisitorList;
+
+
+
