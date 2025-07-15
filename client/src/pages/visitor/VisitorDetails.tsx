@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  Box,
-  Typography,
-  Button,
-  List,
-  ListItem,
-  Divider,
-} from "@mui/material";
+import {Box, Typography, Button, List, ListItem, Divider,} from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/store";
 import { addFollowUpToVisitor } from "../../features/forms/formsSlice";
@@ -15,7 +8,7 @@ import FollowUpDialog from "../../components/FollowUpDialog";
 
 
 const VisitorDetails = () => {
-  const { id } = useParams(); // assuming /visitor/:id where id = index
+  const { id } = useParams();
   const visitorIndex = Number(id);
   const visitor = useSelector(
     (state: RootState) => state.forms.data[visitorIndex]
