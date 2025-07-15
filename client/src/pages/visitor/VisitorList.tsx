@@ -16,7 +16,8 @@ import { addFollowUpToVisitor } from "../../features/forms/formsSlice";
 import FollowUpDialog from "../../components/FollowUpDialog";
 import { useNavigate } from "react-router-dom";
 
-import "./VisitorList.css"; 
+import './VisitorList.css';
+ 
 
 const VisitorList = () => {
   const visitors = useSelector((state: RootState) => state.forms.data);
