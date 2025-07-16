@@ -1,11 +1,5 @@
 .visitor-form {
-  background: linear-gradient(135deg,
-      #fdfbfb,
-      #ebedee,
-      #e3fdfd,
-      #e4ffe1,
-      #fff4e6,
-      #ffe0f0);
+  background:white;
   border: 2px solid #e0e0e0;
   border-radius: 20px;
   padding: 2.5rem 2rem;
@@ -39,7 +33,6 @@
 }
 
 input[name="name"] {
-  background-color: #e9f5ff;
   padding: 12px;
   transition: all 0.3s ease;
 }
@@ -52,20 +45,17 @@ input[name="name"]:focus {
 
 
 input[name="contact"] {
-  background-color: #fff3cd;
   padding: 12px;
   transition: all 0.3s ease;
 }
 
 input[name="contact"]:focus {
-  border-color: #e0a800;
   box-shadow: 0 0 0 1px rgba(255, 193, 7, 0.2);
   background-color: #fff;
 }
 
 
 input[name="visit_date"] {
-  background-color: #f1f3f5;
   padding: 12px;
   transition: all 0.3s ease;
 }
@@ -73,13 +63,11 @@ input[name="visit_date"] {
 input[name="visit_date"]:focus {
   border-color: #1e7e34;
   box-shadow: 0 0 0 1px rgba(40, 167, 69, 0.2);
-  background-color: #fff;
 }
 
 
 textarea[name="purpose"],
 textarea[name="outcome"] {
-  background-color: #f8f9fa;
   border-radius: 10px;
   border: 2px solid #adb5bd;
   padding: 12px;
@@ -90,7 +78,6 @@ textarea[name="purpose"]:focus,
 textarea[name="outcome"]:focus {
   border-color: #6c757d;
   box-shadow: 0 0 0 4px rgba(108, 117, 125, 0.2);
-  background-color: #fff;
 }
 
 
