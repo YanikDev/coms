@@ -1,12 +1,28 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; 
+  font-family: 'Roboto', sans-serif;
+}
+
 .visitor-form {
-  background:white;
+  background: white;
   border: 2px solid #e0e0e0;
-  border-radius: 20px;
+  border-radius: 5px;
   padding: 2.5rem 2rem;
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.07);
   animation: slideFadeIn 0.6s ease forwards;
   opacity: 0;
   transform: translateY(20px);
+  max-width: 750px;
+  width: 100%;
+  margin-top: 1px;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  margin: auto ;
 }
 
 @keyframes slideFadeIn {
@@ -18,8 +34,8 @@
 
 .form-title h1 {
   font-size: 2rem;
-  font-weight: 700;
-  color: #1565c0;
+  font-weight: 400;
+  color: #1a237e;
   animation: fadeInUp 0.5s ease forwards;
   opacity: 0;
   transform: translateY(-10px);
@@ -32,54 +48,19 @@
   }
 }
 
-input[name="name"] {
-  padding: 12px;
-  transition: all 0.3s ease;
+.form-label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 200;
+  font-size: 0.95rem;
+  color: #333;
 }
 
-input[name="name"]:focus {
-  border-color: #0056b3;
-  box-shadow: 0 0 0 1px rgba(13, 110, 253, 0.2);
-  background-color: #fff;
+.form-control-input input,
+textarea {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
 }
-
-
-input[name="contact"] {
-  padding: 12px;
-  transition: all 0.3s ease;
-}
-
-input[name="contact"]:focus {
-  box-shadow: 0 0 0 1px rgba(255, 193, 7, 0.2);
-  background-color: #fff;
-}
-
-
-input[name="visit_date"] {
-  padding: 12px;
-  transition: all 0.3s ease;
-}
-
-input[name="visit_date"]:focus {
-  border-color: #1e7e34;
-  box-shadow: 0 0 0 1px rgba(40, 167, 69, 0.2);
-}
-
-
-textarea[name="purpose"],
-textarea[name="outcome"] {
-  border-radius: 10px;
-  border: 2px solid #adb5bd;
-  padding: 12px;
-  transition: all 0.3s ease;
-}
-
-textarea[name="purpose"]:focus,
-textarea[name="outcome"]:focus {
-  border-color: #6c757d;
-  box-shadow: 0 0 0 4px rgba(108, 117, 125, 0.2);
-}
-
 
 .form-check-label {
   font-size: 1rem;
@@ -88,11 +69,11 @@ textarea[name="outcome"]:focus {
 }
 
 .submit-btn {
-  padding: 14px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 10px;
-  background: #6ed841;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 400;
+  border-radius: 8px;
+  background: linear-gradient(to right, #141e30, #243b55);
   border: none;
   color: #fff;
   transition: all 0.3s ease;
@@ -100,14 +81,15 @@ textarea[name="outcome"]:focus {
 }
 
 .submit-btn:hover {
-  background: #0d7838;
+  background: linear-gradient(to right, #0f2027, #2c5364);
   transform: scale(1.02);
 }
-
 
 @media (max-width: 768px) {
   .visitor-form {
     padding: 2rem 1.5rem;
+    margin-left: 16px;
+    margin-right: 16px;
   }
 
   .form-title h1 {
