@@ -120,7 +120,7 @@ const Layout: React.FC = () => {
             width: `calc(100% - ${sidebarWidth}px)`,
             height: `calc(100vh - ${navbarHeight}px)`,
             overflowY: 'auto',
-            bgcolor: 'grey.100',
+            bgcolor: 'white',
             p: { xs: 2, sm: 3 },
           }}
         >
