@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../../store/store";
 
 interface Meeting {
     date: string;
@@ -49,4 +50,6 @@ const meetingSlice = createSlice({
 });
 
 export const { addMeeting, addTheFollowUpToMeeting } = meetingSlice.actions;
+export const selectMeetingByIndex = (index: number) => (state: RootState) =>
+  state.meeting.meetings[index];
 export default meetingSlice.reducer;

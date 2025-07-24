@@ -19,8 +19,8 @@ const LoginPage = () => {
 
   const users = useSelector((state: RootState) => state.user.users);
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("Admin");
+  const [password, setPassword] = useState("admin123");
   const [error, setError] = useState("");
 
   const handleLogin = () => {
