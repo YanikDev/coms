@@ -1,23 +1,10 @@
-
 import React, { useState } from "react";
-import {
-  Box,
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
-  Button,
-  Stack,
-} from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/store";
 import { addFollowUpToVisitor } from "../../features/forms/formsSlice";
-import FollowUpDialog from "../../components/FollowUpDialog";
 import { useNavigate } from "react-router-dom";
+import FollowUpDialog from "../../components/FollowUpDialog";
 
-import './VisitorList.css';
- 
 
 const VisitorList = () => {
   const visitors = useSelector((state: RootState) => state.forms.data);
@@ -25,6 +12,8 @@ const VisitorList = () => {
   const dispatch = useDispatch();
 
   const [followUpIndex, setFollowUpIndex] = useState<number | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchDate, setSearchDate] = useState("");
 
   const handleAddFollowUp = (index: number) => {
     setFollowUpIndex(index);
@@ -37,67 +26,93 @@ const VisitorList = () => {
     }
   };
 
+  const filteredVisitors = visitors.filter((visitor) => {
+    const matchName = visitor.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchDate = searchDate
+      ? new Date(visitor.visit_date).toISOString().slice(0, 10) === searchDate
+      : true;
+    return matchName && matchDate;
+  });
+
   return (
-<Box className="container my-5">
-  <Typography variant="h4" className="text-center fw-bold text-primary mb-4">
-    Visitor List
-  </Typography>
+    <div className="container py-5">
+      <div className="card shadow p-4">
+        <h2 className="text-center text-primary fw-bold mb-4">Visitor List</h2>
 
-  {visitors.length === 0 ? (
-    <Typography className="text-muted text-center">No visitors submitted yet.</Typography>
-  ) : (
-    <div className="d-flex flex-wrap justify-content-center gap-4">
-      {visitors.map((visitor, index) => (
-        <div key={index} className="visitor-card card p-4 shadow-sm">
-          <div className="text-start">
-            <h5 className="fw-bold mb-2">{visitor.name}</h5>
-            <p className="mb-1">
-              <strong>Contact:</strong> {visitor.contact}
-            </p>
-            <p className="mb-1">
-              <strong>Visit Date:</strong>{" "}
-              {new Date(visitor.visit_date).toLocaleString()}
-            </p>
-            <p className="mb-3">
-              <strong>Purpose:</strong>{" "}
-              <span className="badge bg-info text-dark">{visitor.purpose}</span>
-            </p>
+        
+        <div className="row g-3 justify-content-center mb-4">
+          <div className="col-md-5">
+            <input
+              type="text"
+              className="form-control form-control-lg"
+              placeholder="Search by Name"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
-
-          <div className="d-flex justify-content-end gap-2">
-            <Button
-              variant="outlined"
-              size="small"
-              className="btn btn-outline-primary"
-              onClick={() => navigate(`/visitor/${index}`)}
-            >
-              View Details
-            </Button>
-            <Button
-              variant="contained"
-              size="small"
-              className="btn btn-success"
-              onClick={() => handleAddFollowUp(index)}
-            >
-              Add Follow-up
-            </Button>
+          <div className="col-md-4">
+            <input
+              type="date"
+              className="form-control form-control-lg"
+              value={searchDate}
+              onChange={(e) => setSearchDate(e.target.value)}
+            />
           </div>
         </div>
-      ))}
+
+        {filteredVisitors.length === 0 ? (
+          <p className="text-center text-muted fs-5">No visitors found.</p>
+        ) : (
+          <div className="table-responsive">
+            <table className="table table-bordered align-middle">
+              <thead className="table-primary">
+                <tr>
+                  <th>Name</th>
+                  <th>Contact</th>
+                  <th>Visit Date</th>
+                  <th>Purpose</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredVisitors.map((visitor, index) => (
+                  <tr key={index}>
+                    <td>{visitor.name}</td>
+                    <td>{visitor.contact}</td>
+                    <td>{new Date(visitor.visit_date).toLocaleString()}</td>
+                    <td className="text-capitalize fw-medium">{visitor.purpose}</td>
+                    <td className="text-end">
+                      <div className="d-flex justify-content-end gap-2">
+                        <button
+                          className="btn btn-outline-primary btn-sm px-3"
+                          onClick={() => navigate(`/visitor/${index}`)}
+                        >
+                          View
+                        </button>
+                        <button
+                          className="btn btn-success btn-sm px-3 text-white"
+                          onClick={() => handleAddFollowUp(index)}
+                        >
+                          Follow-up
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+    
+        <FollowUpDialog
+          open={followUpIndex !== null}
+          onClose={() => setFollowUpIndex(null)}
+          onSubmit={handleFollowUpSubmit}
+        />
+      </div>
     </div>
-  )}
-
-  <FollowUpDialog
-    open={followUpIndex !== null}
-    onClose={() => setFollowUpIndex(null)}
-    onSubmit={handleFollowUpSubmit}
-  />
-</Box>
-
   );
 };
 
 export default VisitorList;
-
-
-

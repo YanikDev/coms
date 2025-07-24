@@ -7,8 +7,6 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   animation: slideInUp 0.5s ease-out;
   transition: all 0.3s ease;
-  font-family: 'Roboto', sans-serif;
-
 }
 
 .visitor-box {
@@ -44,7 +42,7 @@
 
 .visitor-box h5,
 .visitor-box .section-title {
-  font-weight: 400;
+  font-weight: 600;
   font-size: 1.4rem;
   margin-bottom: 1.5rem;
   color: #0d6efd;
@@ -82,7 +80,6 @@
     transform: translateY(20px);
     opacity: 0;
   }
-
   to {
     transform: translateY(0px);
     opacity: 1;
@@ -94,7 +91,6 @@
     opacity: 0;
     transform: translateY(10px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -106,7 +102,6 @@
     opacity: 0;
     transform: translateY(10px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);

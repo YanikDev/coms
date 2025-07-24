@@ -65,105 +65,87 @@ const VisitorForm = () => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)} className="visitor-form">
-      <Typography className="form-title mb-4 text-center">
-        <h1>Visitor Form</h1>
-      </Typography>
+    <Box
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
+      className="visitor-form shadow-lg bg-white rounded-4 animate-fadeIn"
+    >
+      <Typography className="form-title mb-4 "><h1>Visitor Form</h1></Typography>
 
-      {/* Full Name & Contact */}
-      <Box display="flex" gap={2} flexDirection={{ xs: "column", sm: "row" }} mb={3}>
-        <Box width="100%">
-          <label className="form-label">Full Name *</label>
-          <TextField
-            placeholder="Balu Gayake"
-            fullWidth
-            size="small"
-            {...register("name")}
-            error={!!errors.name}
-            helperText={errors.name?.message}
-          />
-        </Box>
-        <Box width="100%">
-          <label className="form-label">Contact (Phone or Email) *</label>
-          <TextField
-            placeholder="example@email.com / +91 9876543210"
-            fullWidth
-            size="small"
-            {...register("contact")}
-            error={!!errors.contact}
-            helperText={errors.contact?.message}
-          />
-        </Box>
-      </Box>
-
-      {/* Visit Date */}
-      <Box mb={3}>
-        <label className="form-label">Visit Date *</label>
+      <div className="mb-3">
         <TextField
+          label="Full Name"
+          fullWidth
+          {...register("name")}
+          error={!!errors.name}
+          helperText={errors.name?.message}
+          className="custom-input"
+        />
+      </div>
+
+      <div className="mb-3">
+        <TextField
+          label="Contact (Phone or Email)"
+          fullWidth
+          {...register("contact")}
+          error={!!errors.contact}
+          helperText={errors.contact?.message}
+          className="custom-input"
+        />
+      </div>
+
+      <div className="mb-3">
+        <TextField
+          label="Visit Date"
           type="datetime-local"
           fullWidth
-          size="small"
           InputLabelProps={{ shrink: true }}
           {...register("visit_date", { valueAsDate: true })}
           error={!!errors.visit_date}
           helperText={errors.visit_date?.message}
+          className="custom-input"
         />
-      </Box>
+      </div>
 
-      {/* Purpose & Outcome */}
-      <Box display="flex" gap={2} flexDirection={{ xs: "column", sm: "row" }} mb={3}>
-        <Box width="100%">
-          <label className="form-label">Purpose *</label>
-          <TextField
-            placeholder="Meeting / Inquiry / Discussion"
-            multiline
-            rows={3}
-            fullWidth
-            size="small"
-            {...register("purpose")}
-            error={!!errors.purpose}
-            helperText={errors.purpose?.message}
-          />
-        </Box>
-        <Box width="100%">
-          <label className="form-label">Outcome / Notes</label>
-          <TextField
-            placeholder="Add any outcome or additional notes"
-            multiline
-            rows={3}
-            fullWidth
-            size="small"
-            {...register("outcome")}
-          />
-        </Box>
-      </Box>
+      <div className="mb-3">
+        <TextField
+          label="Purpose"
+          multiline
+          rows={3}
+          fullWidth
+          {...register("purpose")}
+          error={!!errors.purpose}
+          helperText={errors.purpose?.message}
+          className="custom-input"
+        />
+      </div>
 
-      {/* Assigned To Dropdown */}
-      <Box mb={3}>
-        <FormControl fullWidth size="small" error={!!errors.assignedTo}>
-          <InputLabel>Assign To</InputLabel>
-          <Select
-            label="Assign To"
-            defaultValue=""
-            {...register("assignedTo")}
-            onChange={(e) => setValue("assignedTo", e.target.value)}
-          >
-            <MenuItem value="">-- None --</MenuItem>
-            {users.map((user) => (
-              <MenuItem key={user.id} value={user.name}>
-                {user.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Box>
+      <div className="mb-3">
+        <TextField
+          label="Outcome / Notes"
+          multiline
+          rows={3}
+          fullWidth
+          {...register("outcome")}
+          className="custom-input"
+        />
+      </div>
 
-      {/* Submit Button */}
-      <Box textAlign="center">
-        <Button type="submit" variant="contained" className="submit-btn w-100">
-          Submit
-        </Button>
-      </Box>
+      <div className="mb-3">
+        <FormControlLabel
+          control={<Checkbox {...register("has_commitment")} />}
+          label="Any commitment made?"
+        />
+      </div>
+
+      <Button
+        type="submit"
+        variant="contained"
+        className="submit-btn w-100"
+        color="primary"
+      >
+        Submit
+      </Button>
 
       <ToastContainer position="top-right" autoClose={3000} />
     </Box>
