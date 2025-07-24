@@ -33,10 +33,10 @@ const Home = () => {
           />
         </Box>
 
-        <Box sx={{ flex: '1 1 250px', maxWidth: '280px' }}>
+        <Box sx={{ flex: '1 1 250px', maxWidth: '280px' }} onClick={() => navigate('/meeting')}>
           <Card
-            title="Task Assignment"
-            description="Assign and monitor tasks."
+            title="Add The Meeting Entry"
+            description="add and view meetings Entry."
             icon={<FaTasks size={32} color="#06506d" />}
           />
         </Box>
