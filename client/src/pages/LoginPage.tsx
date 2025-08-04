@@ -1,13 +1,4 @@
 import React, { useState } from "react";
-import {
-  Container,
-  TextField,
-  Button,
-  Typography,
-  Box,
-  Paper,
-  Alert,
-} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../store/store";
@@ -25,7 +16,7 @@ const LoginPage = () => {
 
   const handleLogin = () => {
     const foundUser = users.find(
-      (u) => u.name === username && u.password === password
+      (u: { name: string; password: string; }) => u.name === username && u.password === password
     );
     if (foundUser) {
       dispatch(login(foundUser.name));
@@ -36,30 +27,37 @@ const LoginPage = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Paper elevation={3} sx={{ padding: 4, marginTop: 8 }}>
-        <Typography variant="h5" gutterBottom>
-          Login
-        </Typography>
-        <Box display="flex" flexDirection="column" gap={2}>
-          <TextField
-            label="Enter Username"
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
+        <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
+        <div className="flex flex-col gap-4">
+          <input
+            className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <TextField
-            label="Enter Password"
+          <input
+            className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Enter Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button variant="contained" onClick={handleLogin}>
+          <button
+            className="bg-blue-600 text-white rounded px-4 py-2 font-semibold hover:bg-blue-700 transition"
+            onClick={handleLogin}
+          >
             Login
-          </Button>
-          {error && <Alert severity="error">{error}</Alert>}
-        </Box>
-      </Paper>
-    </Container>
+          </button>
+          {error && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded">
+              {error}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 
