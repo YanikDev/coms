@@ -1,25 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  TextField,
-  Checkbox,
-  Button,
-  FormControlLabel,
-  Box,
-  Typography,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
-} from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { VisitorFormData, visitorSchema } from "../../schema/visitorSchema";
 import { addVisitor } from "../../features/forms/formsSlice";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import "./VisitorForm.css";
 
 const VisitorForm = () => {
   const dispatch = useDispatch();
@@ -30,7 +17,6 @@ const VisitorForm = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    setValue,
   } = useForm<VisitorFormData>({
     resolver: zodResolver(visitorSchema),
     defaultValues: {
@@ -39,15 +25,13 @@ const VisitorForm = () => {
     },
   });
 
-  // Simulated user list
   const [users, setUsers] = useState<{ id: string; name: string }[]>([]);
 
   useEffect(() => {
-    // Simulate fetch
     const fakeUsers = [
       { id: "1", name: "Balu" },
       { id: "2", name: "Prasad" },
-      { id: "3", name: "sai" },
+      { id: "3", name: "Sai" },
       { id: "4", name: "Amol" },
     ];
     setUsers(fakeUsers);
@@ -65,90 +49,121 @@ const VisitorForm = () => {
   };
 
   return (
-    <Box
-      component="form"
+    <form
       onSubmit={handleSubmit(onSubmit)}
-      className="visitor-form shadow-lg bg-white rounded-4 animate-fadeIn"
+      className="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg"
     >
-      <Typography className="form-title mb-4 "><h1>Visitor Form</h1></Typography>
+      <h1 className="text-2xl font-bold mb-6 text-center text-indigo-600">
+        Visitor Form
+      </h1>
 
-      <div className="mb-3">
-        <TextField
-          label="Full Name"
-          fullWidth
-          {...register("name")}
-          error={!!errors.name}
-          helperText={errors.name?.message}
-          className="custom-input"
-        />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-gray-700 font-medium mb-1">
+            Full Name
+          </label>
+          <input
+            type="text"
+            {...register("name")}
+            className={`w-full px-4 py-2 border ${
+              errors.name ? "border-red-500" : "border-gray-300"
+            } rounded focus:outline-none focus:ring-2 focus:ring-blue-500`}
+          />
+          {errors.name && (
+            <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-gray-700 font-medium mb-1">
+            Contact (Phone or Email)
+          </label>
+          <input
+            type="text"
+            {...register("contact")}
+            className={`w-full px-4 py-2 border ${
+              errors.contact ? "border-red-500" : "border-gray-300"
+            } rounded focus:outline-none focus:ring-2 focus:ring-blue-500`}
+          />
+          {errors.contact && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.contact.message}
+            </p>
+          )}
+        </div>
       </div>
 
-      <div className="mb-3">
-        <TextField
-          label="Contact (Phone or Email)"
-          fullWidth
-          {...register("contact")}
-          error={!!errors.contact}
-          helperText={errors.contact?.message}
-          className="custom-input"
-        />
-      </div>
-
-      <div className="mb-3">
-        <TextField
-          label="Visit Date"
+      <div className="mt-6">
+        <label className="block text-gray-700 font-medium mb-1">
+          Visit Date
+        </label>
+        <input
           type="datetime-local"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
           {...register("visit_date", { valueAsDate: true })}
-          error={!!errors.visit_date}
-          helperText={errors.visit_date?.message}
-          className="custom-input"
+          className={`w-full px-4 py-2 border ${
+            errors.visit_date ? "border-red-500" : "border-gray-300"
+          } rounded focus:outline-none focus:ring-2 focus:ring-blue-500`}
         />
+        {errors.visit_date && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.visit_date.message}
+          </p>
+        )}
       </div>
 
-      <div className="mb-3">
-        <TextField
-          label="Purpose"
-          multiline
-          rows={3}
-          fullWidth
-          {...register("purpose")}
-          error={!!errors.purpose}
-          helperText={errors.purpose?.message}
-          className="custom-input"
-        />
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-gray-700 font-medium mb-1">
+            Purpose
+          </label>
+          <textarea
+            rows={3}
+            {...register("purpose")}
+            className={`w-full px-4 py-2 border ${
+              errors.purpose ? "border-red-500" : "border-gray-300"
+            } rounded focus:outline-none focus:ring-2 focus:ring-blue-500`}
+          ></textarea>
+          {errors.purpose && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.purpose.message}
+            </p>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-gray-700 font-medium mb-1">
+            Outcome / Notes
+          </label>
+          <textarea
+            rows={3}
+            {...register("outcome")}
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
+        </div>
       </div>
 
-      <div className="mb-3">
-        <TextField
-          label="Outcome / Notes"
-          multiline
-          rows={3}
-          fullWidth
-          {...register("outcome")}
-          className="custom-input"
+      <div className="flex items-center space-x-2 mt-4">
+        <input
+          type="checkbox"
+          id="commitment"
+          {...register("has_commitment")}
+          className="w-4 h-4 text-blue-600 border-gray-300 rounded"
         />
+        <label htmlFor="commitment" className="text-gray-700">
+          Any commitment made?
+        </label>
       </div>
 
-      <div className="mb-3">
-        <FormControlLabel
-          control={<Checkbox {...register("has_commitment")} />}
-          label="Any commitment made?"
-        />
-      </div>
-
-      <Button
+      <button
         type="submit"
-        variant="contained"
-        className="submit-btn w-100"
-        color="primary"
+        className="mt-6 w-full bg-gray-800 text-white py-2 px-4 rounded hover:bg-gray-900 transition-colors duration-300"
+
       >
         Submit
-      </Button>
+      </button>
 
       <ToastContainer position="top-right" autoClose={3000} />
-    </Box>
+    </form>
   );
 };
 
