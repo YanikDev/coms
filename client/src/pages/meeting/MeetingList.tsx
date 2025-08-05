@@ -4,10 +4,13 @@ import { RootState } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 import FollowUpDialog from "../../components/FollowUpDialog";
 import SearchNavbar from "../../components/SearchNavbar";
-import { addTheFollowUpToMeeting } from "../../features/forms/meetingSlice";
+import { addTheFollowUpToMeeting, selectedMeetingsBasedOnUserId } from "../../features/forms/meetingSlice";
+import { selectCurrentUser } from "../../features/user/userSlice";
 
 const MeetingList = () => {
-  const meetings = useSelector((state: RootState) => state.meeting.meetings);
+  const userDetails = useSelector(selectCurrentUser);
+  const meetings = useSelector(selectedMeetingsBasedOnUserId(userDetails?.id || "", userDetails?.role === "admin" ? "admin" : "user"));
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
