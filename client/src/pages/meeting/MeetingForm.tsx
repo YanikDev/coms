@@ -1,4 +1,4 @@
-import React from "react";
+
 import {
   TextField,
   Button,
@@ -94,9 +94,9 @@ const MeetingForm = () => {
         <InputLabel>Assign to Officer</InputLabel>
         <Select defaultValue="" {...register("assignedTo")}>
           {users.map((user) => (
-            <MenuItem key={user.id} value={user.name}>
-              {user.name}
-            </MenuItem>
+        <MenuItem key={user.id} value={user.id}>
+          {user.name}
+        </MenuItem>
           ))}
         </Select>
         <FormHelperText>{errors.assignedTo?.message}</FormHelperText>

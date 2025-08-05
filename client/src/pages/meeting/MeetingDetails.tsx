@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Box, Typography, Button, List, ListItem } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../store/store";
 import { addTheFollowUpToMeeting, selectMeetingByIndex } from "../../features/forms/meetingSlice";
 
 import FollowUpDialog from "../../components/FollowUpDialog";

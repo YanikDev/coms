@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, Box, IconButton, Avatar, Badge, Menu, MenuItem, useMediaQuery, } from '@mui/material';
+import { AppBar, Toolbar, Typography, Box, IconButton, Avatar, Badge, Menu, MenuItem, } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { useTheme } from '@mui/material/styles';
+// import { useTheme } from '@mui/material/styles';
 
 const Navbar: React.FC = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  // const theme = useTheme();
+  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
