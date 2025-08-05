@@ -13,6 +13,7 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import MeetingForm from './pages/meeting/MeetingForm';
 import MeetHome from './pages/meeting/MeetHome';
 import MeetingDetails from './pages/meeting/MeetingDetails';
+
 function App() {
   return (
    <BrowserRouter>
@@ -29,6 +30,7 @@ function App() {
         <Route path="/meetingAdd" element={<MeetingForm />} />
         <Route path="/meeting/:id" element={<MeetingDetails />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
+         
       </Route>
       </Routes>
       </AuthProvider>

@@ -1,23 +1,9 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/store";
-
 import { useNavigate } from "react-router-dom";
 import FollowUpDialog from "../../components/FollowUpDialog";
-import {
-  Box,
-  Button,
-  Container,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-  Typography,
-} from "@mui/material";
+import SearchNavbar from "../../components/SearchNavbar";
 import { addTheFollowUpToMeeting } from "../../features/forms/meetingSlice";
 
 const MeetingList = () => {
@@ -26,8 +12,10 @@ const MeetingList = () => {
   const navigate = useNavigate();
 
   const [followUpIndex, setFollowUpIndex] = useState<number | null>(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchDate, setSearchDate] = useState("");
+  const [searchType, setSearchType] = useState("");
+  const [searchYear, setSearchYear] = useState("");
+  const [searchMonth, setSearchMonth] = useState("");
+  const [searchDay, setSearchDay] = useState("");
 
   const handleAddFollowUp = (index: number) => {
     setFollowUpIndex(index);
@@ -40,97 +28,99 @@ const MeetingList = () => {
     }
   };
 
+  const handleSearchChange = (field: string, value: string) => {
+    if (field === "name") setSearchType(value);
+    else if (field === "year") setSearchYear(value);
+    else if (field === "month") setSearchMonth(value);
+    else if (field === "day") setSearchDay(value);
+  };
+
   const filteredMeetings = meetings.filter((meeting) => {
-    const matchAgenda = meeting.agenda.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchDate = searchDate
-      ? new Date(meeting.date).toISOString().slice(0, 10) === searchDate
-      : true;
-    return matchAgenda && matchDate;
+    const agendaMatch =
+      meeting.agenda.toLowerCase().includes(searchType.toLowerCase()) ||
+      meeting.type.toLowerCase().includes(searchType.toLowerCase());
+
+    const dateObj = new Date(meeting.date);
+    const year = dateObj.getFullYear().toString();
+    const month = (dateObj.getMonth() + 1).toString().padStart(2, "0");
+    const day = dateObj.getDate().toString().padStart(2, "0");
+
+    const yearMatch = searchYear ? searchYear === year : true;
+    const monthMatch = searchMonth ? searchMonth === month : true;
+    const dayMatch = searchDay ? searchDay === day : true;
+
+    return agendaMatch && yearMatch && monthMatch && dayMatch;
   });
 
   return (
-    <Container sx={{ py: 5 }}>
-      <Paper elevation={3} sx={{ p: 4 }}>
-        <Typography variant="h4" textAlign="center" color="primary" fontWeight="bold" mb={4}>
-          Meeting List
-        </Typography>
+    <div className="max-w-6xl mx-auto px-4 py-6">
+      <SearchNavbar
+        title="Meeting List"
+        name={searchType}
+        year={searchYear}
+        month={searchMonth}
+        day={searchDay}
+        onSearchChange={handleSearchChange}
+      />
 
-        <Box display="flex" gap={2} justifyContent="center" mb={3}>
-          <TextField
-            variant="outlined"
-            label="Search by Agenda"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            fullWidth
-          />
-          <TextField
-            type="date"
-            label="Search by Date"
-            value={searchDate}
-            onChange={(e) => setSearchDate(e.target.value)}
-            InputLabelProps={{ shrink: true }}
-          />
-        </Box>
-
+      <div className="bg-white dark:bg-gray-900 mt-4 p-4 rounded-md shadow-md">
         {filteredMeetings.length === 0 ? (
-          <Typography textAlign="center" color="text.secondary">
-            No meetings found.
-          </Typography>
+          <p className="text-center text-gray-500">No meetings found.</p>
         ) : (
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow sx={{ backgroundColor: "#e3f2fd" }}>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Type</TableCell>
-                  <TableCell>Agenda</TableCell>
-                  <TableCell>MoM</TableCell>
-                  <TableCell>Assigned To</TableCell>
-                  <TableCell align="right">Actions</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-sm border rounded-lg overflow-hidden">
+              <thead className="bg-gray-100 text-black-700 uppercase">
+                <tr>
+                  <th className="px-4 py-2 center">Date</th>
+                  <th className="px-4 py-2 center">Type</th>
+                  <th className="px-4 py-2 center">Agenda</th>
+                  <th className="px-4 py-2 center">MoM</th>
+                  <th className="px-4 py-2 center">Assigned To</th>
+                  <th className="px-4 py-2 text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
                 {filteredMeetings.map((meeting, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{new Date(meeting.date).toLocaleString()}</TableCell>
-                    <TableCell>{meeting.type}</TableCell>
-                    <TableCell>{meeting.agenda}</TableCell>
-                    <TableCell>{meeting.mom}</TableCell>
-                    <TableCell>{meeting.assignedTo}</TableCell>
-                    <TableCell align="right">
-                      <Box display="flex" gap={1} justifyContent="flex-end">
-                        <Button
-                          variant="outlined"
-                          size="small"
+                  <tr key={index} className="hover:bg-gray-50">
+                    <td className="px-4 py-2">{new Date(meeting.date).toLocaleString()}</td>
+                    <td className="px-4 py-2">{meeting.type}</td>
+                    <td className="px-4 py-2">{meeting.agenda}</td>
+                    <td className="px-4 py-2">{meeting.mom}</td>
+                    <td className="px-4 py-2">{meeting.assignedTo}</td>
+                    <td className="px-4 py-2 text-right">
+                      <div className="flex gap-2 justify-end">
+                        <button
                           onClick={() => navigate(`/meeting/${index}`)}
+                          className="px-3 py-2 text-md border-none rounded text-white-600 bg-yellow-300 hover:bg-yellow-500 whitespace-nowrap"
                         >
                           View
-                        </Button>
-                        <Button
-                          variant="contained"
-                          size="small"
-                          color="success"
+                        </button>
+                        <button
                           onClick={() => handleAddFollowUp(index)}
+                          className="px-3 py-2 text-md text-white bg-green-600 rounded hover:bg-green-700 whitespace-nowrap border-none"
                         >
                           Follow-up
-                        </Button>
-                      </Box>
-                    </TableCell>
-                  </TableRow>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
                 ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+              </tbody>
+            </table>
+          </div>
         )}
+      </div>
 
-        <FollowUpDialog
-          open={followUpIndex !== null}
-          onClose={() => setFollowUpIndex(null)}
-          onSubmit={handleFollowUpSubmit}
-        />
-      </Paper>
-    </Container>
+      <FollowUpDialog
+        open={followUpIndex !== null}
+        onClose={() => setFollowUpIndex(null)}
+        onSubmit={handleFollowUpSubmit}
+      />
+    </div>
   );
 };
 
 export default MeetingList;
+
+
+

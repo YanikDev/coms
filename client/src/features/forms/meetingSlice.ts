@@ -19,7 +19,37 @@ interface MeetingState {
 }
 
 const initialState: MeetingState = {
-    meetings: [],
+    meetings: [
+          {
+    date: "2025-08-15T10:30:00", 
+    type: "Client Meeting",
+    agenda: "Discuss project requirements",
+    mom: "Client explained scope, team asked questions.",
+    actionPoints: "Prepare proposal by next week.",
+    assignedTo: "Prajwal",
+    followUps: [
+      {
+        date: "2025-08-20",
+        summary: "Proposal shared with client."
+      }
+    ]
+  },
+  {
+    date: "2024-11-02T14:00:00", 
+    type: "Team Review",
+    agenda: "Sprint retrospective and feedback",
+    mom: "Reviewed completed tasks, discussed blockers.",
+    actionPoints: "Improve deployment pipeline.",
+    assignedTo: "Sahil",
+    followUps: [
+      {
+        date: "2024-11-05",
+        summary: "CI/CD reviewed and documented."
+      }
+    ]
+  }
+
+    ],
 };
 
 const meetingSlice = createSlice({

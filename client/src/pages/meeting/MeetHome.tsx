@@ -1,19 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import MeetingList from "./MeetingList";
+import MeetNavbar from "../../components/MeetNavbar";
+
 
 
 const MeetHome = () => {
-    const navigate = useNavigate();
+  
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
-            <h1>Meeting Management</h1>
-            <p>Manage your meetings efficiently with our platform.</p>
-            <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
-                <button onClick={() => navigate("/meetingAdd")}>Add Meeting</button>
-                
-            </div>
+        <>
+        <MeetNavbar title={"Meeting Management"} btnText={"Create Meeting"}/>
+        
+        <div className="bg-white  px-4 py-3 shadow-lg mt-4 rounded-lg">
             <div><MeetingList/></div>
         </div>
+        </>
     )
 }
 
