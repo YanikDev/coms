@@ -11,7 +11,7 @@ const Sidebar: React.FC<SidebarProps> = ({ width }) => {
   const [activeLink, setActiveLink] = useState<string>('Home');
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 600); 
