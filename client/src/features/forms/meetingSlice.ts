@@ -18,6 +18,7 @@ interface Notifications {
   message: string;
   type: "info" | "warning" | "error";
   timestamp: string;
+  agenda?: string; // Optional field for meeting agenda
   userId?: string; // Optional field for user-specific notifications
 }
 interface MeetingState {
@@ -56,7 +57,16 @@ const initialState: MeetingState = {
       ],
     },
   ],
-  notifications: [],
+  notifications: [
+    {
+      date: "2024-10-01",
+      message: "Meeting scheduled for 2024-10-01",
+      agenda: "Project kickoff",
+      type: "info",
+      timestamp: new Date().toISOString(),
+      userId: "2",
+    },
+  ],
 };
 
 const meetingSlice = createSlice({
@@ -67,7 +77,8 @@ const meetingSlice = createSlice({
       state.meetings.push(action.payload);
       const notification: Notifications = {
         date: action.payload.date,
-        message: `New meeting added on ${action.payload.date}`,
+        message: `New meeting Notes added on ${action.payload.date} & agenda: ${action.payload.agenda}`,
+        agenda: action.payload.agenda,
         type: "info",
         timestamp: new Date().toISOString(),
         userId: action.payload.assignedTo,
