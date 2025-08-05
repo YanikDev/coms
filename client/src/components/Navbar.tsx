@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { AppBar, Toolbar, Typography, Box, IconButton, Avatar, Badge, Menu, MenuItem, } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useSelector } from 'react-redux';
 import { selectNotifications } from '../features/forms/meetingSlice';
+import { selectCurrentUser } from '../features/user/userSlice';
+import { RootState } from '../store/store';
 // import { useTheme } from '@mui/material/styles';
 
 const Navbar: React.FC = () => {
@@ -11,8 +13,10 @@ const Navbar: React.FC = () => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const userDetails = useSelector((state: any) => state.userDetails);
-  const notifications = useSelector(selectNotifications(userDetails?.userId));
+  const userDetails = useSelector(selectCurrentUser);
+  const notifications = useSelector(
+    userDetails?.id ? selectNotifications(userDetails.id) : () => []
+  );
 
   const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);

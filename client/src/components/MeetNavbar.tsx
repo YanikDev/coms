@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
+import { isAdmin } from '../features/forms/meetingSlice';
+import { useSelector } from 'react-redux';
 
 interface NavbarProps {
   title: string;
@@ -7,7 +9,7 @@ interface NavbarProps {
 }
 
 const MeetNavbar: React.FC<NavbarProps> = ({ title, btnText }) => {
-  console.log(title);
+  const isAdmins = useSelector(isAdmin)
   const navigate = useNavigate();
 
   return (
@@ -17,13 +19,17 @@ const MeetNavbar: React.FC<NavbarProps> = ({ title, btnText }) => {
         <div className="text-lg md:text-xl font-semibold text-gray-800 dark:text-gray-800 text-center md:text-left">
           {title}
         </div>
-
-        <button
-          onClick={() => navigate("/meetingAdd")}
+        {isAdmins && (
+          <div className="flex items-center justify-end w-full md:w-auto">
+            <button
+              onClick={() => navigate("/meetingAdd")}
           className="bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 whitespace-nowrap border-none"
-        >
-          {btnText}
-        </button>
+              
+          >
+              {btnText}
+            </button>
+          </div>
+        )}
       </div>
     </nav>
   );

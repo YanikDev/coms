@@ -120,9 +120,11 @@ export const selectedMeetingsBasedOnUserId =
 export const selectNotifications = (userId?: string) => (state: RootState) =>
   userId
     ? state.meeting.notifications.filter(
-        (notification) => notification.userId === userId
+        (notification) => notification.userId === state.user.currentUser?.id
       )
     : state.meeting.notifications;
 export const selectMeetingByDate = (date: string) => (state: RootState) =>
   state.meeting.meetings.find((meeting) => meeting.date === date);
+export const isAdmin = (state: RootState) =>
+  state.user.currentUser?.role === "admin";
 export default meetingSlice.reducer;
