@@ -29,7 +29,7 @@ const SearchNavbar: React.FC<NavbarProps> = ({
   return (
     <nav className="bg-white dark:bg-gray-900 px-4 py-3 shadow-md mt-2 rounded-md">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="text-xl font-bold text-gray-800 dark:text-white">
+        <div className="text-xl font-bold text-gray-800 dark:text-gray-800">
           {title}
         </div>
 

@@ -7,13 +7,14 @@ interface NavbarProps {
 }
 
 const MeetNavbar: React.FC<NavbarProps> = ({ title, btnText }) => {
+  console.log(title);
   const navigate = useNavigate();
 
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-sm px-4 py-3 rounded-md">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
         
-        <div className="text-lg md:text-xl font-semibold text-gray-800 dark:text-white text-center md:text-left">
+        <div className="text-lg md:text-xl font-semibold text-gray-800 dark:text-gray-800 text-center md:text-left">
           {title}
         </div>
 

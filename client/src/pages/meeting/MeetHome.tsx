@@ -3,7 +3,6 @@ import MeetingList from "./MeetingList";
 import MeetNavbar from "../../components/MeetNavbar";
 
 
-
 const MeetHome = () => {
   
     return (
