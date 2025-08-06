@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/store";
-import { addFollowUpToVisitor } from "../../features/forms/formsSlice";
 import { useNavigate } from "react-router-dom";
 import FollowUpDialog from "../../components/FollowUpDialog";
-
+import SearchNavbar from "../../components/SearchNavbar";
+import { addFollowUpToVisitor } from "../../features/forms/formsSlice";
 
 const VisitorList = () => {
   const visitors = useSelector((state: RootState) => state.forms.data);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [followUpIndex, setFollowUpIndex] = useState<number | null>(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchDate, setSearchDate] = useState("");
+  const [searchName, setSearchName] = useState("");
+  const [searchYear, setSearchYear] = useState("");
+  const [searchMonth, setSearchMonth] = useState("");
+  const [searchDay, setSearchDay] = useState("");
 
   const handleAddFollowUp = (index: number) => {
     setFollowUpIndex(index);
@@ -26,72 +28,74 @@ const VisitorList = () => {
     }
   };
 
+  const handleSearchChange = (field: string, value: string) => {
+    if (field === "name") setSearchName(value);
+    else if (field === "year") setSearchYear(value);
+    else if (field === "month") setSearchMonth(value);
+    else if (field === "day") setSearchDay(value);
+  };
+
   const filteredVisitors = visitors.filter((visitor) => {
-    const matchName = visitor.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchDate = searchDate
-      ? new Date(visitor.visit_date).toISOString().slice(0, 10) === searchDate
-      : true;
-    return matchName && matchDate;
+    const nameMatch = visitor.name.toLowerCase().includes(searchName.toLowerCase());
+
+    const dateObj = new Date(visitor.visit_date);
+    const year = dateObj.getFullYear().toString();
+    const month = (dateObj.getMonth() + 1).toString().padStart(2, "0");
+    const day = dateObj.getDate().toString().padStart(2, "0");
+
+    const yearMatch = searchYear ? year === searchYear : true;
+    const monthMatch = searchMonth ? month === searchMonth : true;
+    const dayMatch = searchDay ? day === searchDay : true;
+
+    return nameMatch && yearMatch && monthMatch && dayMatch;
   });
 
   return (
-    <div className="container py-5">
-      <div className="card shadow p-4">
-        <h2 className="text-center text-primary fw-bold mb-4">Visitor List</h2>
+    <div className="max-w-6xl mx-auto px-4 py-6">
+      <SearchNavbar
+        title="Visitor List"
+        name={searchName}
+        year={searchYear}
+        month={searchMonth}
+        day={searchDay}
+        onSearchChange={handleSearchChange}
+      />
 
-        
-        <div className="row g-3 justify-content-center mb-4">
-          <div className="col-md-5">
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              placeholder="Search by Name"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          <div className="col-md-4">
-            <input
-              type="date"
-              className="form-control form-control-lg"
-              value={searchDate}
-              onChange={(e) => setSearchDate(e.target.value)}
-            />
-          </div>
-        </div>
-
+      <div className="bg-white dark:bg-gray-900 mt-4 p-4 rounded-md shadow-md">
         {filteredVisitors.length === 0 ? (
-          <p className="text-center text-muted fs-5">No visitors found.</p>
+          <p className="text-center text-gray-500">No visitors found.</p>
         ) : (
-          <div className="table-responsive">
-            <table className="table table-bordered align-middle">
-              <thead className="table-primary">
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-sm border rounded-lg overflow-hidden">
+              <thead className="bg-gray-100 text-black-700 uppercase">
                 <tr>
-                  <th>Name</th>
-                  <th>Contact</th>
-                  <th>Visit Date</th>
-                  <th>Purpose</th>
-                  <th></th>
+                  <th className="px-4 py-2 center">Name</th>
+                  <th className="px-4 py-2 center">Contact</th>
+                  <th className="px-4 py-2 center">Visit Date</th>
+                  <th className="px-4 py-2 center">Purpose</th>
+                  <th className="px-4 py-2 text-center">Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="divide-y divide-gray-200">
                 {filteredVisitors.map((visitor, index) => (
-                  <tr key={index}>
-                    <td>{visitor.name}</td>
-                    <td>{visitor.contact}</td>
-                    <td>{new Date(visitor.visit_date).toLocaleString()}</td>
-                    <td className="text-capitalize fw-medium">{visitor.purpose}</td>
-                    <td className="text-end">
-                      <div className="d-flex justify-content-end gap-2">
+                  <tr key={index} className="hover:bg-gray-50">
+                    <td className="px-4 py-2">{visitor.name}</td>
+                    <td className="px-4 py-2">{visitor.contact}</td>
+                    <td className="px-4 py-2">
+                      {new Date(visitor.visit_date).toLocaleString()}
+                    </td>
+                    <td className="px-4 py-2 capitalize">{visitor.purpose}</td>
+                    <td className="px-4 py-2 text-right">
+                      <div className="flex gap-2 justify-end">
                         <button
-                          className="btn btn-outline-primary btn-sm px-3"
                           onClick={() => navigate(`/visitor/${index}`)}
+                          className="px-3 py-2 text-md border-none rounded text-white-600 bg-yellow-300 hover:bg-yellow-500 whitespace-nowrap"
                         >
                           View
                         </button>
                         <button
-                          className="btn btn-success btn-sm px-3 text-white"
                           onClick={() => handleAddFollowUp(index)}
+                          className="px-3 py-2 text-md text-white bg-green-600 rounded hover:bg-green-700 whitespace-nowrap border-none"
                         >
                           Follow-up
                         </button>
@@ -103,14 +107,13 @@ const VisitorList = () => {
             </table>
           </div>
         )}
-
-    
-        <FollowUpDialog
-          open={followUpIndex !== null}
-          onClose={() => setFollowUpIndex(null)}
-          onSubmit={handleFollowUpSubmit}
-        />
       </div>
+
+      <FollowUpDialog
+        open={followUpIndex !== null}
+        onClose={() => setFollowUpIndex(null)}
+        onSubmit={handleFollowUpSubmit}
+      />
     </div>
   );
 };

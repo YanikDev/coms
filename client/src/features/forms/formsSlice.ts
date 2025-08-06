@@ -24,7 +24,7 @@ const initialState: VisitorState = {
             name: "Prasad Patil",
             contact: "1234567890",
             status:"Pending",
-            visit_date: new Date("2024-06-03"),
+            visit_date: new Date("2025-06-03"),
             purpose: "Support",
             followUps: [],
         },

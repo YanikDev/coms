@@ -13,6 +13,7 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import MeetingForm from './pages/meeting/MeetingForm';
 import MeetHome from './pages/meeting/MeetHome';
 import MeetingDetails from './pages/meeting/MeetingDetails';
+import VisitorHome from './pages/visitor/VisitorHome';
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/about" element={<About />} />
         <Route path="/visitor" element={<VisitorForm />} />
-        <Route path="/visitor-list" element={<VisitorList />} />
+        <Route path="/visitor-list" element={<VisitorHome />} />
         <Route path="/visitor/:id" element={<VisitorDetails />} />
         <Route path="/meeting" element={<MeetHome />} />
         <Route path="/meetingAdd" element={<MeetingForm />} />
