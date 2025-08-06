@@ -7,6 +7,7 @@ interface NavbarProps {
   month?: string;
   day?: string;
   onSearchChange?: (field: string, value: string) => void;
+  search: string;
 }
 
 const years = ['2023', '2024', '2025'];
@@ -25,6 +26,7 @@ const SearchNavbar: React.FC<NavbarProps> = ({
   month,
   day,
   onSearchChange,
+  search
 }) => {
   return (
     <nav className="bg-white dark:bg-gray-900 px-4 py-3 shadow-md mt-2 rounded-md">
@@ -36,7 +38,7 @@ const SearchNavbar: React.FC<NavbarProps> = ({
         <div className="flex flex-wrap gap-2 items-center">
           <input
             type="text"
-            placeholder="Search by type"
+            placeholder={`Search by ${search}`}
             value={name}
             onChange={(e) => onSearchChange?.('name', e.target.value)}
             className="px-3 py-2 border rounded-md text-sm w-[260px]"

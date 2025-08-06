@@ -59,6 +59,7 @@ const VisitorList = () => {
         month={searchMonth}
         day={searchDay}
         onSearchChange={handleSearchChange}
+        search="name"
       />
 
       <div className="bg-white dark:bg-gray-900 mt-4 p-4 rounded-md shadow-md">

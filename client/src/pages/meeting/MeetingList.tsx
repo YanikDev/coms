@@ -64,6 +64,7 @@ const MeetingList = () => {
         month={searchMonth}
         day={searchDay}
         onSearchChange={handleSearchChange}
+        search="type"
       />
 
       <div className="bg-white dark:bg-gray-900 mt-4 p-4 rounded-md shadow-md">
