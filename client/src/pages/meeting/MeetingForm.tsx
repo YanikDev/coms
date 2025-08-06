@@ -29,14 +29,14 @@ const MeetingForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-4xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow space-y-6"
+      className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow space-y-6"
     >
       <h1 className="text-2xl font-bold mb-6 text-center text-indigo-600">
         Meeting Form
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">
+          <label className="block text-sm font-semibold text-gray-700  mb-1">
             Date
           </label>
           <input
@@ -52,7 +52,7 @@ const MeetingForm = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">
+          <label className="block text-sm font-semibold text-gray-700  mb-1">
             Type
           </label>
           <select
@@ -74,7 +74,7 @@ const MeetingForm = () => {
         </div>
 
         <div className="md:col-span-2">
-          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">
+          <label className="block text-sm font-semibold text-gray-700  mb-1">
             Agenda / Subject
           </label>
           <input
@@ -92,7 +92,7 @@ const MeetingForm = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">
+          <label className="block text-sm font-semibold text-gray-700  mb-1">
             MoM - Discussed Points
           </label>
           <textarea
@@ -108,7 +108,7 @@ const MeetingForm = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">
+          <label className="block text-sm font-semibold text-gray-700  mb-1">
             Action Points
           </label>
           <textarea
@@ -127,7 +127,7 @@ const MeetingForm = () => {
       </div>
 
       <div>
-        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">
+        <label className="block text-sm font-semibold text-gray-700  mb-1">
           Assign to Officer
         </label>
         <select
