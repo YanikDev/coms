@@ -4,7 +4,6 @@ import Home from './pages/Home';
 import About from './pages/About';
 import VisitorForm from './pages/visitor/VisitorForm';
 import 'react-toastify/dist/ReactToastify.css';
-import Layout from './components/Layout';
 import VisitorList from './pages/visitor/VisitorList';
 import VisitorDetails from './pages/visitor/VisitorDetails';
 import { AuthProvider } from './context/AuthContext';
@@ -14,6 +13,8 @@ import MeetingForm from './pages/meeting/MeetingForm';
 import MeetHome from './pages/meeting/MeetHome';
 import MeetingDetails from './pages/meeting/MeetingDetails';
 import VisitorHome from './pages/visitor/VisitorHome';
+import Layout from './components/Layout';
+
 
 function App() {
   return (
