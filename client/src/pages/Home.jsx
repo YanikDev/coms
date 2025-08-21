@@ -50,10 +50,10 @@ const Home = () => {
           />
         </Box>
 
-        <Box sx={{ flex: '1 1 250px', maxWidth: '280px' }}>
+        <Box onClick={() => navigate('/letter-form')}  sx={{ flex: '1 1 250px', maxWidth: '280px' }}>
           <Card
-            title="Visitor History"
-            description="Track past visitor data."
+            title="Letter Correspondence"
+            description="Official communication through letters."
             icon={<FaHistory size={32} color="#06506d" />}
           />
         </Box>

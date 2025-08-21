@@ -14,6 +14,7 @@ import MeetHome from './pages/meeting/MeetHome';
 import MeetingDetails from './pages/meeting/MeetingDetails';
 import VisitorHome from './pages/visitor/VisitorHome';
 import Layout from './components/Layout';
+import Letter_Form from './pages/letter/Letter_Form';
 
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
         <Route path="/meeting" element={<MeetHome />} />
         <Route path="/meetingAdd" element={<MeetingForm />} />
         <Route path="/meeting/:id" element={<MeetingDetails />} />
+        <Route path="/letter-form" element={<Letter_Form />} />
+
         <Route path="*" element={<h1>404 Not Found</h1>} />
          
       </Route>
